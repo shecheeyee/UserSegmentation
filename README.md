@@ -9,7 +9,8 @@ Welcome to the UserSegmentation project! This repository contains all the necess
 Before you begin, please make sure you have the following prerequisites installed on your system:
 - Docker: [Install Docker](https://docs.docker.com/get-docker/)
 - Docker Compose: [Install Docker Compose](https://docs.docker.com/compose/install/)
-- Apache Spark: [Install Apache Spark](https://spark.apache.org/docs/latest/#downloading) 
+- Apache Spark: [Install Apache Spark](https://spark.apache.org/docs/latest/#downloading)
+   - Windows installation: https://sparkbyexamples.com/spark/apache-spark-installation-on-windows/
  
 
 ## Getting Started
