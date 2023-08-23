@@ -1,0 +1,159 @@
+CREATE DATABASE customers;
+
+\c customers;
+
+CREATE TABLE IF NOT EXISTS merchants (
+    appId NUMERIC UNIQUE NOT NULL,
+    name VARCHAR(64) NOT NULL,
+    PRIMARY KEY (appId)
+);
+
+ 
+
+CREATE TABLE IF NOT EXISTS profile (
+    profileLevel NUMERIC UNIQUE NOT NULL,
+    profileLevelName VARCHAR(64) NOT NULL,
+    PRIMARY KEY (profileLevel)
+);
+
+ 
+
+CREATE TABLE IF NOT EXISTS type (
+    transType NUMERIC UNIQUE NOT NULL,
+    transTypeName VARCHAR(64) NOT NULL,
+    PRIMARY KEY (transType)
+);
+
+ 
+
+CREATE TABLE IF NOT EXISTS campaign (
+    campaignID NUMERIC UNIQUE NOT NULL,
+    type NUMERIC, -- not null?
+    expireDate TIMESTAMP NOT NULL,
+    expireTime NUMERIC NOT NULL,
+    startDate TIMESTAMP,
+    modifiedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (campaignID)
+);
+
+ 
+
+CREATE TABLE IF NOT EXISTS promotions (
+    voucherCode VARCHAR(64) UNIQUE NOT NULL,
+    userid NUMERIC NOT NULL,
+    status VARCHAR(32) NOT NULL,
+    campaignID NUMERIC NOT NULL,
+    time TIMESTAMP NOT NULL,
+    modifiedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (voucherCode),
+    FOREIGN KEY (campaignID) REFERENCES campaign(campaignID) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+ 
+
+CREATE TABLE IF NOT EXISTS users (
+    userid NUMERIC UNIQUE NOT NULL,
+    birthdate DATE, 
+    profileLevel NUMERIC,
+    gender VARCHAR(32),
+    updatedTime TIMESTAMP NOT NULL,
+    voucherCode VARCHAR(64) UNIQUE,
+    modifiedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (userid),
+    FOREIGN KEY (voucherCode) REFERENCES promotions(voucherCode) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED,
+    FOREIGN KEY (profileLevel) REFERENCES profile(profileLevel) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED 
+);
+
+ 
+
+ 
+
+CREATE TABLE IF NOT EXISTS transactions (
+    transId VARCHAR(64) UNIQUE NOT NULL,
+    transStatus NUMERIC NOT NULL,
+    userid NUMERIC NOT NULL,
+    transactionTime TIMESTAMP NOT NULL,
+    appId NUMERIC NOT NULL,
+    transType NUMERIC NOT NULL,
+    amount DECIMAL(12, 2) NOT NULL,
+    pmcId NUMERIC,
+    modifiedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (transId),
+    --FOREIGN KEY (appId) REFERENCES merchants(appId) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED, --drop this first
+    FOREIGN KEY (transType) REFERENCES type(transType) ON UPDATE CASCADE ON DELETE CASCADE DEFERRABLE INITIALLY DEFERRED
+);
+
+ 
+
+INSERT INTO merchants 
+VALUES
+    (10, 'Telco'),
+    (11, 'Lazada'),
+    (12, 'Tiki'),
+    (13, 'Internet'),
+    (14, 'Electricity'),
+    (15, 'Water'),
+    (16, 'TV'),
+    (17, '123Phim'),
+    (18, '123Go'),
+    (19, 'Shopee'),
+    (20, 'Dominos'),
+    (21, 'Game'),
+    (22, 'Bitis');
+
+ 
+
+ 
+
+INSERT INTO campaign 
+VALUES
+    (1000, 1, '2022-01-01 00:00:00', 0),
+    (1001, 1, '2022-01-01 00:00:00', 0),
+    (1002, 1, '2022-01-01 00:00:00', 0),
+    (1003, 1, '2022-01-01 00:00:00', 0),
+    (1004, 1, '2022-01-01 00:00:00', 0),
+    (1005, 1, '2022-01-01 00:00:00', 0),
+    (1006, 2, '2022-01-01 00:00:00', 6048000),
+    (1007, 2, '2022-01-01 00:00:00', 6048000),
+    (1008, 2, '2022-01-01 00:00:00', 6048000),
+    (1009, 2, '2022-01-01 00:00:00', 6048000),
+    (1100, 2, '2022-01-01 00:00:00', 6048000),
+    (1101, 1, '2022-04-01 00:00:00', 0),
+    (1102, 1, '2022-04-01 00:00:00', 0),
+    (1103, 1, '2022-04-01 00:00:00', 0),
+    (1104, 1, '2022-04-01 00:00:00', 0),
+    (1105, 1, '2022-04-01 00:00:00', 0),
+    (1106, 2, '2022-04-01 00:00:00', 7776000),
+    (1107, 2, '2022-04-01 00:00:00', 7776000),
+    (1108, 2, '2022-04-01 00:00:00', 7776000),
+    (1109, 2, '2022-04-01 00:00:00', 7776000);
+
+
+ 
+
+-- Insert into profile
+INSERT INTO profile 
+VALUES
+    (1, 'Dont have phone number'),
+    (2, 'Have phone number'),
+    (3, 'KYC');
+
+ 
+
+ 
+
+-- Insert into type
+INSERT INTO type 
+VALUES
+    (1, 'Fund In'),
+    (2, 'Fund out'),
+    (3, 'Payment'),
+    (4, 'LiXi'),
+    (5, 'Transfer');
+
+ 
+
+ 
+
+UPDATE campaign
+SET startdate = TO_TIMESTAMP(EXTRACT(EPOCH FROM expiredate) - expiretime);
