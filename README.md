@@ -80,5 +80,6 @@ Follow these steps to set up the Apache Airflow environment using Docker Compose
  
 
 ## Next Steps
-The UserSegmentation pipeline will run daily, it can be found under DAGs, named `daily_ingest`. You can also manually trigger it by clicking the start button at the top right corner of the DAG's page.
+The UserSegmentation pipeline will run daily, it can be found under DAGs, named `daily_ingest`. You can change the frequency by changing the crontab synxtax in `daily_ingest.py`.    
+You can also manually trigger the DAG manually by clicking the start button at the top right corner of the DAG's page.
  
