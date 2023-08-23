@@ -49,14 +49,22 @@ Follow these steps to set up the Apache Airflow environment using Docker Compose
 
  
 
-4. **Run Docker Compose:** To start the Apache Airflow environment, execute the following command:  
+3. **Run Docker Compose:** To start the Apache Airflow environment, execute the following command:  
     ```bash
     docker-compose up 
     ```
 
 
-5. **Access the Airflow UI:** Once the services are up and running, you can access the Apache Airflow web interface by opening a web browser and navigating to [http://localhost:8080](http://localhost:8080).  
-6. **Access the Airflow CMD:** Navigate into one of the airflow containers to access the airflow terminal, you can test your Operators locally in here.  
+4. **Access the Airflow UI:** Once the services are up and running, you can access the Apache Airflow web interface by opening a web browser and navigating to [http://localhost:8080](http://localhost:8080).
+    a. Before running the project, you have to add the spark connection.
+    b. You can add the spark connection by going to Admin > Connections
+    c. Add a connection with the following details
+     - Conn Id: spark_default
+     - Conn Type: spark
+     - Host: spark://spark-master
+     - Port: 7077
+   
+5. **Access the Airflow CMD:** Navigate into one of the airflow containers to access the airflow terminal, you can test your Operators locally in here.  
     a. Run the following command to get the name of the containers  
       ```bash
       docker-compose ps
@@ -71,7 +79,7 @@ Follow these steps to set up the Apache Airflow environment using Docker Compose
       ```  
 
 
-7. **Stop and Cleanup:** To stop the environment and remove the containers, execute the following command:  
+6. **Stop and Cleanup:** To stop the environment and remove the containers, execute the following command:  
 
     ```bash
     docker-compose down
