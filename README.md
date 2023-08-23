@@ -24,21 +24,25 @@ Follow these steps to set up the Apache Airflow environment using Docker Compose
 
 2. **Execute SQL Statements:** There is a text file named `sql_statements.txt` containing your SQL `CREATE TABLE` and `INSERT INTO` commands, follow these steps to execute them in your database:  
     a. Ensure you have `psql` installed and configured with the appropriate database connection details.  
-    b. Open a terminal window and navigate to the directory where the `sql_statements.txt` file is located.
-    c. Run the following command to get the name of the containers, copy the one that says `postgres:13`
+    b. Run the following command to get the name of the containers, copy the one that says `postgres:13`
    
       ```bash
       docker-compose ps
       ```
        
    
-    d. Run the following `psql` command to execute the SQL commands from the file:
+    c. Run the following command to enter the postgres container
    
       ```bash
-      psql -d postgres_container_id -U airflow -a -f sql_statements.txt
+      docker exec -it postgres_container_name psql -U airflow
+      ```
+    d. Run the following command to execute sql commands.
+   
+      ```bash
+      \i /var/lib/postgresql/sql_statements.txt
       ```
    
-    e. The `psql` tool will execute the SQL commands from the `sql_statements.txt` file, and you'll see the output indicating the success or failure of each command.  
+    e. The database is now created, along with the static mapping tables that is needed for the pipeline.  
 
  
 
