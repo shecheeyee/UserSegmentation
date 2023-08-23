@@ -11,6 +11,8 @@ Before you begin, please make sure you have the following prerequisites installe
 - Docker Compose: [Install Docker Compose](https://docs.docker.com/compose/install/)
 - Apache Spark: [Install Apache Spark](https://spark.apache.org/docs/latest/#downloading)
    - Windows installation: https://sparkbyexamples.com/spark/apache-spark-installation-on-windows/
+   - Mac installation: https://sparkbyexamples.com/spark/install-apache-spark-on-mac/
+   - Linux installation: https://sparkbyexamples.com/spark/spark-installation-on-linux-ubuntu/
  
 
 ## Getting Started
