@@ -55,9 +55,9 @@ Follow these steps to set up the Apache Airflow environment using Docker Compose
     ```
 
 
-4. **Access the Airflow UI:** Once the services are up and running, you can access the Apache Airflow web interface by opening a web browser and navigating to [http://localhost:8080](http://localhost:8080).
-    a. Before running the project, you have to add the spark connection.
-    b. You can add the spark connection by going to Admin > Connections
+4. **Access the Airflow UI:** Once the services are up and running, you can access the Apache Airflow web interface by opening a web browser and navigating to [http://localhost:8080](http://localhost:8080).  
+    a. Before running the project, you have to add the spark connection.  
+    b. You can add the spark connection by going to Admin > Connections  
     c. Add a connection with the following details
      - Conn Id: spark_default
      - Conn Type: spark
